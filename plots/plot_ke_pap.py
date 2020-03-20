@@ -56,41 +56,40 @@ drift4_non = np.loadtxt('./ke_64ppd_non', comments = '#')
                       
 fig = plt.figure(figsize=(6, 6))
 
-ax = fig.add_subplot(211) 
-ax.set_title('Momentum consistent (MC) vs. Momentum non-consistent (NON)')
-ax.plot(stats1_mc[:,0]*1000.0, stats1_mc[:,12] - drift1_mc[:,1], color='red', marker = 's', markersize = 3.0 , linewidth=1.0, label=r'MC : $D/\Delta x = 8$' )
-ax.plot(stats2_mc[:,0]*1000.0, stats2_mc[:,12] - drift2_mc[:,1], color='blue', marker = 's', markersize = 3.0, linewidth=1.0, label=r'MC : $D/\Delta x = 16$' )
-ax.plot(stats3_mc[:,0]*1000.0, stats3_mc[:,12] - drift3_mc[:,1], color='green', marker = 's', markersize = 3.0, linewidth=1.0, label=r'MC : $D/\Delta x = 32$' )
-ax.plot(stats4_mc[:,0]*1000.0, stats4_mc[:,12] - drift4_mc[:,1], color='black', marker = 's', markersize = 3.0, linewidth=1.0, label=r'MC : $D/\Delta x = 64$' )
-
-ax.plot(stats1_non[:,0]*1000.0, stats1_non[:,12]*1e7 - drift1_non[:,1]*1e7, color='red', marker = '^', markersize = 4.0 , linewidth=1.0, label=r'NON : $D/\Delta x = 8$' )
-ax.plot(stats2_non[:,0]*1000.0, stats2_non[:,12]*1e7 - drift2_non[:,1]*1e7, color='blue', marker = '^', markersize = 4.0, linewidth=1.0, label=r'NON : $D/\Delta x = 16$' )
-ax.plot(stats3_non[:,0]*1000.0, stats3_non[:,12]*1e7 - drift3_non[:,1]*1e7, color='green', marker = '^', markersize = 4.0, linewidth=1.0, label=r'NON : $D/\Delta x = 32$' )
-ax.plot(stats4_non[:,0]*1000.0, stats4_non[:,12]*1e7 - drift4_non[:,1]*1e7, color='black', marker = '^', markersize = 4.0, linewidth=1.0, label=r'NON : $D/\Delta x = 64$' )
-
-plt.ylabel(r'Droplet Kinetic Energy ($\times 10^{-7}$ Kg.$m^{2}$/$s^2$)')
-plt.xlabel(r'Time ($\times 10^{-3}$ s)')
-plt.xlim(left = 0, right = 4)
-plt.xticks(fontsize = '14')
-plt.yticks(fontsize = '14')
-plt.legend(fontsize = '13')
-plt.grid()
+ax = fig.add_subplot(111) 
+#ax.set_title('Momentum consistent (MC) vs. Momentum non-consistent (NON)')
+ax.plot(stats1_mc[:,0]*1000.0, stats1_mc[:,12] - drift1_mc[:,1], color='red', marker = 'x', markersize = 4.0 , linewidth=1.0, label=r'$D/h = 8$' , markevery = 2)
+ax.plot(stats2_mc[:,0]*1000.0, stats2_mc[:,12] - drift2_mc[:,1], color='blue', marker = 's', markersize = 4.0, linewidth=1.0, label=r'$D/h = 16$' , markevery = 2 )
+ax.plot(stats3_mc[:,0]*1000.0, stats3_mc[:,12] - drift3_mc[:,1], color='green', marker = 'o', markersize = 4.0, linewidth=1.0, label=r'$D/h = 32$' , markevery = 2 )
+ax.plot(stats4_mc[:,0]*1000.0, stats4_mc[:,12] - drift4_mc[:,1], color='black', marker = '^', markersize = 4.0, linewidth=1.0, label=r'$D/h = 64$'  , markevery = 2)
 
 
-
-ax2 = fig.add_subplot(212)
-ax2.set_title('Momentum consistent method')
-ax2.plot(stats1_mc[:,0]*1000.0, stats1_mc[:,12]*1e7 - drift1_mc[:,1]*1e7, color='red', marker = 'o', markersize = 3.0 , linewidth=1.0, label=r'$D/\Delta x = 8$' )
-ax2.plot(stats2_mc[:,0]*1000.0, stats2_mc[:,12]*1e7 - drift2_mc[:,1]*1e7, color='blue', marker = 'o', markersize = 3.0 , linewidth=1.0, label=r'$D/\Delta x = 16$' )
-ax2.plot(stats3_mc[:,0]*1000.0, stats3_mc[:,12]*1e7 - drift3_mc[:,1]*1e7, color='green', marker = 'o', markersize = 3.0 , linewidth=1.0, label=r'$D/\Delta x = 32$' )
-ax2.plot(stats4_mc[:,0]*1000.0, stats4_mc[:,12]*1e7 - drift4_mc[:,1]*1e7, color='black', marker = 'o', markersize = 3.0 , linewidth=1.0, label=r'$D/\Delta x = 64$' )
-
-plt.ylabel(r'Droplet Kinetic Energy ($\times 10^{-7}$ Kg.$m^{2}$/$s^2$)')
-plt.xlabel(r'Time ($\times 10^{-3}$ s)')
-plt.xlim(left = 0, right = 10)
+plt.ylabel(r'Droplet Kinetic Energy (Kg.$m^{2}$/$s^2$)', fontsize = 14)
+plt.xlabel(r'Time ($\times 10^{-3}$ s)', fontsize = 14)
+plt.xlim(left = 0, right = 5.1)
+plt.ylim(bottom = 0, top = 6e-7)
 plt.xticks(fontsize = 12)
 plt.yticks(fontsize = 12)
-#plt.ylim(top = 6e-5, bottom = 4e-5)
 plt.legend(fontsize = 12)
 plt.grid()
+
+
+
+# =============================================================================
+# ax2 = fig.add_subplot(212)
+# ax2.set_title('Momentum consistent method')
+# ax2.plot(stats1_mc[:,0]*1000.0, stats1_mc[:,12]*1e7 - drift1_mc[:,1]*1e7, color='red', marker = 'o', markersize = 3.0 , linewidth=1.0, label=r'$D/\Delta x = 8$' )
+# ax2.plot(stats2_mc[:,0]*1000.0, stats2_mc[:,12]*1e7 - drift2_mc[:,1]*1e7, color='blue', marker = 'o', markersize = 3.0 , linewidth=1.0, label=r'$D/\Delta x = 16$' )
+# ax2.plot(stats3_mc[:,0]*1000.0, stats3_mc[:,12]*1e7 - drift3_mc[:,1]*1e7, color='green', marker = 'o', markersize = 3.0 , linewidth=1.0, label=r'$D/\Delta x = 32$' )
+# ax2.plot(stats4_mc[:,0]*1000.0, stats4_mc[:,12]*1e7 - drift4_mc[:,1]*1e7, color='black', marker = 'o', markersize = 3.0 , linewidth=1.0, label=r'$D/\Delta x = 64$' )
+# 
+# plt.ylabel(r'Droplet Kinetic Energy ($\times 10^{-7}$ Kg.$m^{2}$/$s^2$)')
+# plt.xlabel(r'Time ($\times 10^{-3}$ s)')
+# plt.xlim(left = 0, right = 10)
+# plt.xticks(fontsize = 12)
+# plt.yticks(fontsize = 12)
+# #plt.ylim(top = 6e-5, bottom = 4e-5)
+# plt.legend(fontsize = 12)
+# plt.grid()
+# =============================================================================
 plt.show()

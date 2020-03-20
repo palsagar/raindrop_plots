@@ -77,40 +77,42 @@ err_32= np.sqrt(np.diag(pcov_32))
 err_64= np.sqrt(np.diag(pcov_64))
 
 error_acc = [err_8[0],err_16[0],err_32[0],err_64[0]]
-ppd = np.array([8,16,32,64])
+ppd = [8,16,32,64]
 
 
-fig = plt.figure(figsize=(6, 6))
+fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111) 
-ax.set_title('Momentum consistent (MC)')
-ax.plot(vel_8[:,0]*1e3 , vel_8[:,1], color='red', marker = 'x', markersize = 2.0 , linewidth=1.0, label=r'MC : $D/\Delta x = 8$' )
-ax.plot(vel_16[:,0]*1e3, vel_16[:,1], color='blue', marker = 'x', markersize = 2.0, linewidth=1.0, label=r'MC : $D/\Delta x = 16$' )
-ax.plot(vel_32[:,0]*1e3, vel_32[:,1], color='green', marker = 'x', markersize = 2.0, linewidth=1.0, label=r'MC : $D/\Delta x = 32$' )
-ax.plot(vel_64[:,0]*1e3, vel_64[:,1], color='black', marker = 'x', markersize = 2.0, linewidth=1.0, label=r'MC : $D/\Delta x = 64$' )
-plt.ylabel(r'Droplet Velocity')
-plt.xlabel(r'Time ($\times 10^{-3}$ s)')
+#ax.set_title('Momentum consistent (MC)')
+ax.plot(vel_8[:,0]*1e3 , vel_8[:,1]*1e3, color='red', marker = 'x', markersize = 4.0 , linewidth=1.0, label=r'$D/h = 8$' )
+ax.plot(vel_16[:,0]*1e3, vel_16[:,1]*1e3, color='blue', marker = 's', markersize = 4.0, linewidth=1.0, label=r'$D/h = 16$' )
+ax.plot(vel_32[:,0]*1e3, vel_32[:,1]*1e3, color='green', marker = 'o', markersize = 4.0, linewidth=1.0, label=r'$D/h = 32$' )
+ax.plot(vel_64[:,0]*1e3, vel_64[:,1]*1e3, color='black', marker = '^', markersize = 4.0, linewidth=1.0, label=r'$D/h = 64$' )
+plt.ylabel(r'Droplet Velocity ($\times 10^{-3} $ m/s)',fontsize = 16 )
+plt.xlabel(r'Time ($\times 10^{-3}$ s)', fontsize = 16)
 plt.xlim(left = 0, right = 5)
-plt.xticks(fontsize = '14')
-plt.yticks(fontsize = '14')
-plt.legend(fontsize = '13')
+plt.xticks(fontsize = 14)
+plt.yticks(fontsize = 14)
+plt.legend(fontsize = 12, loc = 'upper right')
 plt.grid()
 
 
-ax2 = fig.add_axes([0.6, 0.6, 0.36, 0.33])
+ax2 = fig.add_axes([0.22, 0.22, 0.3, 0.3])
 #l , caps , c = ax2.errorbar(ppd, acceleration, yerr=error_acc, uplims=True, lolims=True, fmt='o', capthick= 1.5, linewidth = 1.5)
-ax2.errorbar(ppd, acceleration, yerr=error_acc, uplims=True, lolims=True, fmt='o', capthick= 1.5, linewidth = 1.5)
-
+l , caps , c = ax2.errorbar(ppd[:], acceleration[:], yerr=error_acc[:], uplims=True, lolims=True, fmt='o', capthick= 0.7, linewidth = 1.2, markersize = 2.2)
+for cap in caps:
+    cap.set_marker("_")
 #for cap in caps:
 #    cap.set_marker("_")
 
 
 
-plt.ylabel(r'Droplet Acceleration')
-plt.xlabel(r'Resolution')
-plt.xlim(left = 0, right = 5)
-plt.xticks(fontsize = '14')
-plt.yticks(fontsize = '14')
-plt.legend(fontsize = '13')
+plt.ylabel(r'Acceleration (m/$s^{2}$)', fontsize = 12)
+plt.xlabel(r'Resolution ($D/h$)', fontsize = 12)
+plt.xscale('log', basex = 2)
+plt.xlim(left = 5, right = 80)
+plt.xticks(fontsize = 12)
+plt.yticks(fontsize = 12)
+#plt.legend(fontsize = '13')
 plt.grid()
 
 

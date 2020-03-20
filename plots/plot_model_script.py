@@ -6,17 +6,17 @@ plt.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}",r'\boldmath']
 params = {'backend': 'pdf',
         'text.usetex' : True,
         "font.serif": [],
-        'font.size' : 14,
-        'legend.fontsize': 16,
+        'font.size' : 10,
+        'legend.fontsize': 8,
         'legend.fancybox' : True, 
-        'xtick.labelsize': 14,
-        'ytick.labelsize': 14,
-        'lines.linewidth': 2.0,
-        'lines.markersize' : 8,
-        'axes.linewidth' : 1.5,
-        'axes.labelsize' : 16,
+        'xtick.labelsize': 10,
+        'ytick.labelsize': 10,
+        'lines.linewidth': 1.0,
+        'lines.markersize' : 3.5,
+        'axes.linewidth' : 1.0,
+        'axes.labelsize' : 10,
         'grid.linestyle' : ':',
-        'grid.linewidth' : 1.2, 
+        'grid.linewidth' : 1.0, 
         'text.latex.unicode': True
           }
 
@@ -54,24 +54,73 @@ drift3_non = np.loadtxt('./ke_32ppd_non', comments = '#')
 drift4_non = np.loadtxt('./ke_64ppd_non', comments = '#')                        
                                         
                       
-fig = plt.figure(figsize=(6, 6))
+fig = plt.figure(figsize=(8, 6))
 
-ax = fig.add_subplot(111) 
-#ax.set_title('Momentum consistent (MC) vs. Momentum non-consistent (NON)')
-ax.plot(stats1_mc[:,0]*1000.0, 1e4*(stats1_mc[:,10]-stats1_mc[0,10])/stats1_mc[0,10] , color='red', marker = 'x', markersize = 4.0 , linewidth=1.0, label=r'$D/h = 8$' , markevery = 2)
-ax.plot(stats2_mc[:,0]*1000.0, 1e4*(stats2_mc[:,10]-stats2_mc[0,10])/stats2_mc[0,10] , color='blue', marker = 's', markersize = 4.0, linewidth=1.0, label=r'$D/h = 16$' , markevery = 2 )
-ax.plot(stats3_mc[:,0]*1000.0, 1e4*(stats3_mc[:,10]-stats3_mc[0,10])/stats2_mc[0,10] , color='green', marker = 'o', markersize = 4.0, linewidth=1.0, label=r'$D/h = 32$' , markevery = 2 )
-ax.plot(stats4_mc[:,0]*1000.0, 1e4*(stats4_mc[:,10]-stats4_mc[0,10])/stats2_mc[0,10] , color='black', marker = '^', markersize = 4.0, linewidth=1.0, label=r'$D/h = 64$'  , markevery = 2)
+ax = fig.add_subplot(223) 
+ax.set_title('C')
+ax.plot(iner1_mc[:,0]*1e-3, iner1_mc[:,1] , color='red', marker = 'x',  label=r'$D/h = 8$' , markevery = 2)
+ax.plot(iner2_mc[:,0]*1e-3, iner2_mc[:,1], color='blue', marker = 's',  label=r'$D/h = 16$' , markevery = 2)
+ax.plot(iner3_mc[:,0]*1e-3, iner3_mc[:,1], color='green', marker = 'o', label=r'$D/h = 32$' , markevery = 2)
+ax.plot(iner4_mc[:,0]*1e-4, iner4_mc[:,1], color='black', marker = '^', label=r'$D/h = 64$' , markevery = 2)
 
-
-plt.ylabel(r'Change in Droplet Mass ($\times 10^{-2} $ \% )', fontsize = 14)
-plt.xlabel(r'Time ($\times 10^{-3}$ s)', fontsize = 14)
-#plt.yscale('log',basex = 10)
+plt.ylabel(r'Droplet Moment of Inertia ($I_{xx}$)', fontsize = 10)
+plt.xlabel(r'Time ($\times 10^{-3}$ s)')
 plt.xlim(left = 0, right = 5.1)
-plt.ylim(bottom = -0.02, top =0.02)
-plt.xticks(fontsize = 12)
-plt.yticks(fontsize = 12)
-plt.legend(fontsize = 12)
+plt.xticks()
+plt.yticks()
+plt.legend()
+plt.grid()
+
+
+
+ax2 = fig.add_subplot(224)
+ax2.set_title('D')
+ax2.plot(iner1_mc[:,0]*1e-3, iner1_mc[:,2] , color='red', marker = 'x', label=r'$D/h = 8$' , markevery = 2)
+ax2.plot(iner2_mc[:,0]*1e-3, iner2_mc[:,2], color='blue', marker = 's', label=r'$D/h = 16$' , markevery = 2)
+ax2.plot(iner3_mc[:,0]*1e-3, iner3_mc[:,2], color='green', marker = 'o', label=r'$D/h = 32$' , markevery = 2)
+ax2.plot(iner4_mc[:,0]*1e-4, iner4_mc[:,2], color='black', marker = '^', label=r'$D/h = 64$' , markevery = 2)
+
+plt.ylabel(r'Droplet Moment of Inertia ($I_{yy}$)')
+plt.xlabel(r'Time ($\times 10^{-3}$ s)')
+plt.xlim(left = 0, right = 5.1)
+plt.xticks()
+plt.yticks()
+plt.legend()
+plt.grid()
+
+
+ax3 = fig.add_subplot(221)
+ax3.set_title('A')
+ax3.plot(stats1_mc[:,0]*1000.0, stats1_mc[:,12] - drift1_mc[:,1], color='red', marker = 'x', label=r'$D/h = 8$' , markevery = 2)
+ax3.plot(stats2_mc[:,0]*1000.0, stats2_mc[:,12] - drift2_mc[:,1], color='blue', marker = 's', label=r'$D/h = 16$' , markevery = 2 )
+ax3.plot(stats3_mc[:,0]*1000.0, stats3_mc[:,12] - drift3_mc[:,1], color='green', marker = 'o', label=r'$D/h = 32$' , markevery = 2 )
+ax3.plot(stats4_mc[:,0]*1000.0, stats4_mc[:,12] - drift4_mc[:,1], color='black', marker = '^', label=r'$D/h = 64$'  , markevery = 2)
+
+plt.ylabel(r'Droplet Kinetic Energy (Kg.$m^{2}$/$s^2$)')
+plt.xlabel(r'Time ($\times 10^{-3}$ s)')
+plt.xlim(left = 0, right = 5.1)
+plt.ylim(bottom = 0, top = 6e-7)
+plt.xticks()
+plt.yticks()
+plt.legend()
+plt.grid()
+
+
+
+ax4 = fig.add_subplot(222)
+ax4.set_title('B')
+ax4.plot(stats1_mc[:,0]*1000.0, 1e6*(stats1_mc[:,10]-stats1_mc[0,10])/stats1_mc[0,10] , color='red', marker = 'x', label=r'$D/h = 8$' , markevery = 2)
+ax4.plot(stats2_mc[:,0]*1000.0, 1e6*(stats2_mc[:,10]-stats2_mc[0,10])/stats2_mc[0,10] , color='blue', marker = 's', label=r'$D/h = 16$' , markevery = 2 )
+ax4.plot(stats3_mc[:,0]*1000.0, 1e6*(stats3_mc[:,10]-stats3_mc[0,10])/stats2_mc[0,10] , color='green', marker = 'o', label=r'$D/h = 32$' , markevery = 2 )
+ax4.plot(stats4_mc[:,0]*1000.0, 1e6*(stats4_mc[:,10]-stats4_mc[0,10])/stats2_mc[0,10] , color='black', marker = '^', label=r'$D/h = 64$'  , markevery = 2)
+
+plt.ylabel(r'Change in Droplet Mass ($\times 10^{-4} $ \% )')
+plt.xlabel(r'Time ($\times 10^{-3}$ s)')
+plt.xlim(left = 0, right = 5.1)
+plt.ylim(bottom = -2.0, top =2.0)
+plt.xticks()
+plt.yticks()
+plt.legend()
 plt.grid()
 
 
